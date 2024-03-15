@@ -25,8 +25,16 @@ const showData = (data) => {
   highLow.innerHTML = `${Math.round(data.main.temp_max - 273.15)}°c / ${Math.round(data.main.temp_min - 273.15)}°c`
 };
 
+const loadingPage = () => {
+    fetch(`${apiData.url}tehran&appid=${apiData.key}`)
+    .then((res) => res.json())
+    .then((data) => showData(data));
+}
+
 inputElem.addEventListener("keypress", (event) => {
   if (event.keyCode === 13) {
     fetchData();
   }
 });
+
+window.addEventListener("load", loadingPage)
