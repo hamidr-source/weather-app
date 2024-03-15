@@ -11,20 +11,26 @@ const apiData = {
 
 const fetchData = () => {
   let countryName = inputElem.value;
-
-  fetch(`${apiData.url}${countryName}&appid=${apiData.key}`)
-    .then((res) => res.json())
-    .then((data) => {
-      if (data.cod === 200) {
-        showData(data);
-      } else {
-        city.innerHTML = `${countryName} is not a city or country.`;
-        temp.innerHTML = "";
-        weather.innerHTML = "";
-        highLow.innerHTML = "";
-      }
-
-    });
+  if (countryName === "") {
+    city.innerHTML = "Please enter a city or country.";
+    temp.innerHTML = "";
+    weather.innerHTML = "";
+    highLow.innerHTML = "";
+  } else {
+    fetch(`${apiData.url}${countryName}&appid=${apiData.key}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.cod === 200) {
+          showData(data);
+          console.log(data);
+        } else {
+          city.innerHTML = `${countryName} is not a city or country.`;
+          temp.innerHTML = "";
+          weather.innerHTML = "";
+          highLow.innerHTML = "";
+        }
+      });
+  }
 };
 
 const showData = (data) => {
