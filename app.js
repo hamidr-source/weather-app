@@ -14,22 +14,33 @@ const fetchData = () => {
 
   fetch(`${apiData.url}${countryName}&appid=${apiData.key}`)
     .then((res) => res.json())
-    .then((data) => showData(data));
+    .then((data) => {
+      if (data.cod === 200) {
+        showData(data);
+      } else {
+        city.innerHTML = `${countryName} is not a city or country.`;
+        temp.innerHTML = "";
+        weather.innerHTML = "";
+        highLow.innerHTML = "";
+      }
+
+    });
 };
 
 const showData = (data) => {
-  console.log(data);
   city.innerHTML = `${data.name}, ${data.sys.country}`;
   temp.innerHTML = `${Math.round(data.main.temp - 273.15)}°c`;
   weather.innerHTML = `${data.weather[0].main}`;
-  highLow.innerHTML = `${Math.round(data.main.temp_max - 273.15)}°c / ${Math.round(data.main.temp_min - 273.15)}°c`
+  highLow.innerHTML = `${Math.round(
+    data.main.temp_max - 273.15
+  )}°c / ${Math.round(data.main.temp_min - 273.15)}°c`;
 };
 
 const loadingPage = () => {
-    fetch(`${apiData.url}tehran&appid=${apiData.key}`)
+  fetch(`${apiData.url}tehran&appid=${apiData.key}`)
     .then((res) => res.json())
     .then((data) => showData(data));
-}
+};
 
 inputElem.addEventListener("keypress", (event) => {
   if (event.keyCode === 13) {
@@ -37,4 +48,4 @@ inputElem.addEventListener("keypress", (event) => {
   }
 });
 
-window.addEventListener("load", loadingPage)
+window.addEventListener("load", loadingPage);
