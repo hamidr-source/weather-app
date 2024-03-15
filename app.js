@@ -13,9 +13,7 @@ const fetchData = () => {
   let countryName = inputElem.value;
   if (countryName === "") {
     city.innerHTML = "Please enter a city or country.";
-    temp.innerHTML = "";
-    weather.innerHTML = "";
-    highLow.innerHTML = "";
+    emptyingData();
   } else {
     fetch(`${apiData.url}${countryName}&appid=${apiData.key}`)
       .then((res) => res.json())
@@ -25,12 +23,16 @@ const fetchData = () => {
           console.log(data);
         } else {
           city.innerHTML = `${countryName} is not a city or country.`;
-          temp.innerHTML = "";
-          weather.innerHTML = "";
-          highLow.innerHTML = "";
+          emptyingData();
         }
       });
   }
+};
+
+const emptyingData = () => {
+  temp.innerHTML = "";
+  weather.innerHTML = "";
+  highLow.innerHTML = "";
 };
 
 const showData = (data) => {
