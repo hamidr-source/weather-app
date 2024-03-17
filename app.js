@@ -3,6 +3,7 @@ const city = document.querySelector(".city");
 const temp = document.querySelector(".temp");
 const weather = document.querySelector(".weather");
 const highLow = document.querySelector(".hi-low");
+const date = document.querySelector(".date");
 
 const apiData = {
   url: "https://api.openweathermap.org/data/2.5/weather?q=",
@@ -42,12 +43,44 @@ const showData = (data) => {
   highLow.innerHTML = `${Math.round(
     data.main.temp_max - 273.15
   )}°c / ${Math.round(data.main.temp_min - 273.15)}°c`;
+  date.innerHTML = showTime();
 };
 
 const loadingPage = () => {
   fetch(`${apiData.url}tehran&appid=${apiData.key}`)
     .then((res) => res.json())
     .then((data) => showData(data));
+};
+
+const showTime = () => {
+  const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  let now = new Date()
+
+  console.log(now)
 };
 
 inputElem.addEventListener("keypress", (event) => {
