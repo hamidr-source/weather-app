@@ -78,9 +78,11 @@ const showTime = () => {
     "Saturday",
   ];
 
-  let now = new Date()
+  let now = new Date();
 
-  console.log(now)
+  return `${weekDays[now.getDay()]} ${now.getDate()} ${
+    month[now.getMonth()]
+  } ${now.getFullYear()}`;
 };
 
 inputElem.addEventListener("keypress", (event) => {
